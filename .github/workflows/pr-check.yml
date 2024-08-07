@@ -1,0 +1,21 @@
+name: MATLAB Task PR Check
+on:
+  pull_request:
+    paths:
+      - 'soln.m'
+
+jobs:
+  trigger-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Trigger test suite in repo2
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO2_ACCESS_TOKEN }}
+        repository: MAXPIL0T/Coding-Contest-Scorer
+        event-type: test-suite
+        client-payload: '{"pr_number": "${{ github.event.pull_request.number }}", "repository": "${{ github.repository }}", "actor": "${{ github.actor }}", "sha": "${{ github.sha }}"}'
