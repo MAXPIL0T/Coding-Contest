@@ -1,17 +1,22 @@
-remBest = inf;
+function ix = soln(x,lim)
+    % Try a bunch of random permutations
 
-rng(1)
+    remBest = inf;
 
-for i = 1:2
-    rp = randperm(length(x));
-    xcs = cumsum(x(rp));
-    ix = find(xcs < lim);
-    ixTest = rp(ix);
-    rem = lim - sum(x(ixTest));
-    if rem < remBest
-        ixBest = ixTest;
-        remBest = rem;
+    rng(1)
+
+    for i = 1:2
+        rp = randperm(length(x));
+        xcs = cumsum(x(rp));
+        ix = find(xcs < lim);
+        ixTest = rp(ix);
+        rem = lim - sum(x(ixTest));
+        if rem < remBest
+            ixBest = ixTest;
+            remBest = rem;
+        end
     end
-end
 
-ix = ixBest;
+    ix = ixBest;
+
+end
